@@ -6,7 +6,7 @@ from sqlalchemy.orm import (
     relationship,
     mapped_column,
 )
-from .Base import BaseORM, str_50
+from .base import BaseORM, str_50
 
 # Структура (схема) подчинения таблиц: MenuORM -> SubmenuORM -> DishRecipeORM
 

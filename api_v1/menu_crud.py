@@ -34,6 +34,7 @@ async def create_entry(
     obj = class_orm(**obj_in.model_dump(exclude_unset=True))
     session.add(obj)
     await session.commit()
+    await session.refresh(obj)
     return obj
 
 
@@ -53,6 +54,7 @@ async def update_entry(
     for name, value in obj_update.model_dump(exclude_unset=True).items():
         setattr(model_orm, name, value)
     await session.commit()
+    await session.refresh(model_orm)
     return model_orm
 
 

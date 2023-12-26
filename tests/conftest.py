@@ -7,9 +7,9 @@ from httpx import AsyncClient
 from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from main import app
+from alembic.versions.main import app
 from config import settings
-from core.models.Base import BaseORM
+from core.models.base import BaseORM
 from sqlalchemy.orm import sessionmaker
 
 from core.database import db

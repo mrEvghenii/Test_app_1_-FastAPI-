@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:12
+    container_name: db_app
+    restart: always
+    command: -p 6669
+    expose:
+      - 6669
+    env_file:
+      - .env_docker
+
+  app:
+    build:
+      context: .
+    env_file:
+      - .env_docker
+    container_name: cafe_app
+    restart: always
+    command: ["/Cafe_app/docker/app.sh"]
+    ports:
+      - 8000:8080
+    depends_on:
+      - db

@@ -1,4 +1,4 @@
-FROM python:3.10-alpine3.19
+FROM python:3.10
 
 RUN mkdir "/Cafe_app"
 
@@ -10,5 +10,9 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD gunicorn main:app --workers 1 --workers-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8080
+RUN chmod a+x docker/*.sh
+
+#CMD python3 insert_test_data.py
+#
+#CMD gunicorn main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8080
 

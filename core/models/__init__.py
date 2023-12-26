@@ -1,5 +1,4 @@
 __all__ = (
-    "Base",
     "MainMenuORM",
     "SubmenuORM",
     "DishRecipeORM",

@@ -13,15 +13,19 @@ from api_v1.menu_views import (
     html_router,
 )
 from config import settings
+from core.models.base import BaseORM
+from core.database import db
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    async with db.engine.begin() as conn:
+        await conn.run_sync(BaseORM.metadata.create_all)
     yield
 
 
 app = FastAPI(lifespan=lifespan)
-app.include_router(html_router, prefix=settings.api_v1_prefix)
+# app.include_router(html_router, prefix=settings.api_v1_prefix)
 app.include_router(get_combined_menu_router, prefix=settings.api_v1_prefix)
 app.include_router(main_menu_router, prefix=settings.api_v1_prefix)
 app.include_router(submenu_router, prefix=settings.api_v1_prefix)
@@ -32,6 +36,7 @@ origins = [
     "http://localhost",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
+    "http://db:8000",
 ]
 
 app.add_middleware(
